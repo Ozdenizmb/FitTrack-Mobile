@@ -1,12 +1,24 @@
 import { StyleSheet, View, SafeAreaView, Button } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { Avatar, Title, Caption, Text } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import EditProfile from '../../components/EditProfile';
 
 const Profile = () => {
 
+    const [visible, setVisible] = useState(false)
+
+    const onPressEdit = () => {
+        setVisible(true);
+    }
+
+    const onCancel = () => {
+        setVisible(false);
+    }
+
     return (
         <SafeAreaView style={styles.container}>
+            <EditProfile visible={visible} onCancel={onCancel} />
 
             <View style={styles.userInfoSection}>
                 <View style={{flexDirection: 'row', marginTop: 15}}>
@@ -42,7 +54,7 @@ const Profile = () => {
             </View>
 
             <View>
-                <Button title="Edit Profile" />
+                <Button title="Edit Profile" onPress={onPressEdit} />
             </View>
 
             <View style={styles.infoBoxWrapper}>
