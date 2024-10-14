@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Avatar, Title, Caption, Text } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import EditProfile from '../../components/EditProfile';
+import AnonymousPhoto from '../../../assets/profile.png';
 
 const Profile = () => {
 
@@ -23,9 +24,7 @@ const Profile = () => {
             <View style={styles.userInfoSection}>
                 <View style={{flexDirection: 'row', marginTop: 15}}>
                 <Avatar.Image 
-                    source={{
-                    uri: 'asd',
-                    }}
+                    source={AnonymousPhoto}
                     size={80}
                 />
                 <View style={{marginLeft: 20}}>

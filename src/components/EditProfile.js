@@ -1,13 +1,13 @@
 import { View, Text, TouchableOpacity, ImageBackground, TextInput, StyleSheet, Modal } from 'react-native';
-import React, { useState } from 'react'
+import React from 'react'
 import { useTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
+import AnonymousPhoto from '../../assets/profile.png';
 
 const EditProfile = ({ visible, onCancel }) => {
 
-    const [image, setImage] = useState('https://baranozdeniz.com/static/media/myProfilePhoto.2310e0a976cb4eee6a49.webp');
     const {colors} = useTheme()
 
     const cancelHandler = () => {
@@ -18,7 +18,7 @@ const EditProfile = ({ visible, onCancel }) => {
         <Modal animationType='slide' visible={visible}>
             <View style={styles.container}>
                 <View style={{alignItems: 'center'}}>
-                    <TouchableOpacity onPress={() => this.bs.current.snapTo(0)}>
+                    <TouchableOpacity>
                         <View
                         style={{
                             height: 100,
@@ -28,9 +28,7 @@ const EditProfile = ({ visible, onCancel }) => {
                             alignItems: 'center',
                         }}>
                             <ImageBackground
-                            source={{
-                            uri: image,
-                            }}
+                            source={AnonymousPhoto}
                             style={{height: 100, width: 100}}
                             imageStyle={{borderRadius: 15}}>
                                 <View
