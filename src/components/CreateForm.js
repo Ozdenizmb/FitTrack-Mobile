@@ -1,15 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const Favorite = () => {
-
+const CreateForm = () => {
     return (
         <View>
-            <Text>Favorite</Text>
+            <Text>CreateForm</Text>
         </View>
     )
 }
 
-export default Favorite
+export default CreateForm
 
 const styles = StyleSheet.create({})
