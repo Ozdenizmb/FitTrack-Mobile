@@ -1,13 +1,19 @@
-import { StyleSheet, View } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import React from 'react'
 import SearchBar from '../../components/SearchBar'
+import TrainingCategories from '../../components/TrainingCategories'
+import ImageSlider from '../../components/ImageSlider'
 
 const Index = () => {
 
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <SearchBar />
-        </View>
+            <View style={styles.indexSlider}>
+                <ImageSlider />
+            </View>
+            <TrainingCategories />
+        </ScrollView>
     )
 }
 
@@ -16,6 +22,9 @@ export default Index
 const styles = StyleSheet.create({
     container: {
         marginVertical: 30,
-        marginHorizontal: 10
+        marginHorizontal: 20
+    },
+    indexSlider: {
+        marginBottom: 30
     }
 })
