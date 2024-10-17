@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 20
     },
     indexSlider: {
-        marginBottom: 30
+        marginBottom: 30,
+        marginTop: 10
     }
 })

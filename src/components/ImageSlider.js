@@ -17,13 +17,6 @@ const images = [
 const ImageSlider = () => {
     return (
         <View>
-            <View style={styles.titleContainer}>
-                <Text style={styles.title}>FEATURES</Text>
-                <TouchableOpacity style={styles.showAllContainer}>
-                    <Text style={styles.showAllText}>SHOW ALL</Text>
-                    <AntDesign name="right" size={24} color="#1885d8" />
-                </TouchableOpacity>
-            </View>
             <Swiper style={styles.wrapper} showsButtons={false} autoplay={true}>
                 {images.map((image, index) => (
                     <View key={index} style={styles.slide}>
@@ -38,23 +31,6 @@ const ImageSlider = () => {
 export default ImageSlider
 
 const styles = StyleSheet.create({
-    titleContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginBottom: 10
-    },
-    title: {
-        color: 'gray',
-        fontSize: 18
-    },
-    showAllContainer: {
-        flexDirection: 'row',
-        alignItems: 'center'
-    },
-    showAllText: {
-        color: '#1885d8',
-        fontSize: 18
-    },
     wrapper: {
         height: 500,
     },
