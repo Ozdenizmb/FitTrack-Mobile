@@ -2,10 +2,17 @@ import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native
 import React from 'react'
 import AntDesign from '@expo/vector-icons/AntDesign';
 import TrainingCard from './TrainingCard';
+import { useNavigation } from '@react-navigation/native'
 
 const TrainingCardFeed = ({ category, data }) => {
 
+    const navigation = useNavigation();
+
     const filteredData = data.filter(item => item.category === category);
+
+    const onPressTouchableOpacity = (itemId) => {
+        navigation.navigate('TrainingDetailScreen', {id: itemId})
+    }
 
     return (
         <View>
@@ -23,7 +30,7 @@ const TrainingCardFeed = ({ category, data }) => {
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => {
                     return(
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => onPressTouchableOpacity(item.id)}>
                             <TrainingCard data={item} style={styles.trainingCard} />
                         </TouchableOpacity>
                     )
