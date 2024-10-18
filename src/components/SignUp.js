@@ -1,13 +1,25 @@
-import { View, Text, TouchableOpacity, TextInput, StyleSheet, Modal } from 'react-native';
-import React from 'react'
-import { useTheme } from 'react-native-paper';
+import { StyleSheet, Text, View, Modal, TouchableOpacity, TextInput } from 'react-native'
+import React, { useState } from 'react'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
+import { useTheme } from 'react-native-paper';
 
-const EditProfile = ({ visible, onCancel }) => {
+const SignUp = ({ visible, onCommand, onCancel }) => {
 
-    const {colors} = useTheme()
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [phone, setPhone] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [country, setCountry] = useState("");
+    const [city, setCity] = useState("");
+
+    const {colors} = useTheme();
+
+    const commandHandler = () => {
+        onCommand();
+    }
 
     const cancelHandler = () => {
         onCancel();
@@ -28,6 +40,8 @@ const EditProfile = ({ visible, onCancel }) => {
                             color: colors.text,
                         },
                         ]}
+                        value={firstName}
+                        onChangeText={(text) => setFirstName(text)}
                     />
                 </View>
                 <View style={styles.action}>
@@ -42,6 +56,8 @@ const EditProfile = ({ visible, onCancel }) => {
                             color: colors.text,
                         },
                         ]}
+                        value={lastName}
+                        onChangeText={(text) => setLastName(text)}
                     />
                 </View>
                 <View style={styles.action}>
@@ -57,6 +73,8 @@ const EditProfile = ({ visible, onCancel }) => {
                             color: colors.text,
                         },
                         ]}
+                        value={phone}
+                        onChangeText={(text) => setPhone(text)}
                     />
                 </View>
                 <View style={styles.action}>
@@ -72,6 +90,25 @@ const EditProfile = ({ visible, onCancel }) => {
                             color: colors.text,
                         },
                         ]}
+                        value={email}
+                        onChangeText={(text) => setEmail(text)}
+                    />
+                </View>
+                <View style={styles.action}>
+                    <FontAwesome name="lock" color={colors.text} size={20} />
+                    <TextInput
+                        placeholder="Password"
+                        placeholderTextColor="#666666"
+                        secureTextEntry={true}
+                        autoCorrect={false}
+                        style={[
+                            styles.textInput,
+                            {
+                                color: colors.text,
+                            },
+                        ]}
+                        value={password}
+                        onChangeText={(text) => setPassword(text)}
                     />
                 </View>
                 <View style={styles.action}>
@@ -86,6 +123,8 @@ const EditProfile = ({ visible, onCancel }) => {
                             color: colors.text,
                         },
                         ]}
+                        value={country}
+                        onChangeText={(text) => setCountry(text)}
                     />
                 </View>
                 <View style={styles.action}>
@@ -100,10 +139,12 @@ const EditProfile = ({ visible, onCancel }) => {
                             color: colors.text,
                         },
                         ]}
+                        value={city}
+                        onChangeText={(text) => setCity(text)}
                     />
                 </View>
-                <TouchableOpacity style={styles.commandButton} onPress={() => {}}>
-                    <Text style={styles.panelButtonTitle}>Update</Text>
+                <TouchableOpacity style={styles.commandButton} onPress={commandHandler}>
+                    <Text style={styles.panelButtonTitle}>Sign Up</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.cancelButton} onPress={cancelHandler}>
                     <Text style={styles.panelButtonTitle}>Cancel</Text>
@@ -113,13 +154,13 @@ const EditProfile = ({ visible, onCancel }) => {
     )
 }
 
-export default EditProfile
+export default SignUp
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         marginHorizontal: 30,
-        marginVertical: 200
+        marginVertical: 180
     },
     action: {
         flexDirection: 'row',

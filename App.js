@@ -8,6 +8,9 @@ import TrainingDetail from './src/views/TrainingDetailScreen/TrainingDetail';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import CreateTraining from './src/views/CreateTrainingScreen/CreateTraining';
+import ProfileRedirection from './src/views/ProfileRedirectionScreen/ProfileRedirection';
+import Login from './src/components/Login';
+import SignUp from './src/components/SignUp';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -24,7 +27,10 @@ function IndexStack() {
 function ProfileStack() {
     return (
         <Stack.Navigator>
+            <Stack.Screen name="ProfileRedirectionScreen" component={ProfileRedirection} options={{ headerShown: false }} />
             <Stack.Screen name="ProfileScreen" component={Profile} options={{ headerShown: false }} />
+            <Stack.Screen name="LoginScreen" component={Login} options={{ headerShown: false }} />
+            <Stack.Screen name="SignUpScreen" component={SignUp} options={{ headerShown: false }} />
         </Stack.Navigator>
     );
 }
