@@ -5,6 +5,7 @@ import Login from './Login'
 import SignUp from './SignUp'
 import { login, signUp } from '../api/ApiCalls'
 import { loginUserHandler } from '../redux/AuthActions'
+import { useDispatch } from 'react-redux'
 
 const ProfileRedirectionNavigate = () => {
 
@@ -12,6 +13,8 @@ const ProfileRedirectionNavigate = () => {
     const [loginVisible, setLoginVisible] = useState(false);
 
     const [error, setError] = useState("");
+
+    const dispatch = useDispatch();
 
     const onPressLogin = () => {
         setLoginVisible(true);
@@ -32,17 +35,20 @@ const ProfileRedirectionNavigate = () => {
     const onCommandLogin = async (email, password) => {
         try {
             const response = await login(email, password);
-            loginUserHandler(response.data, password);
+            dispatch(loginUserHandler(response.data, password));
+            setLoginVisible(false);
         } catch(error) {
-            setError(error.data.detail);
+            console.log(error)
+            setError();
         }
     }
 
     const onCommandSignUp = async (body) => {
         try {
             await signUp(body);
+            setSignUpVisible(false);
         } catch(error) {
-            setError(error.data.detail);
+            setError();
         }
     }
 

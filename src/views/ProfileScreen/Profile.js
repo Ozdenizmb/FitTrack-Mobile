@@ -4,10 +4,14 @@ import { Avatar, Title, Caption, Text } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import EditProfile from '../../components/EditProfile';
 import AnonymousPhoto from '../../../assets/profile.png';
+import { useDispatch } from 'react-redux';
+import { logoutSuccess } from '../../redux/AuthActions';
 
 const Profile = () => {
 
     const [visible, setVisible] = useState(false)
+
+    const dispatch = useDispatch();
 
     const onPressEdit = () => {
         setVisible(true);
@@ -15,6 +19,10 @@ const Profile = () => {
 
     const onCancel = () => {
         setVisible(false);
+    }
+
+    const onPressExit = () => {
+        dispatch(logoutSuccess());
     }
 
     return (
@@ -54,6 +62,7 @@ const Profile = () => {
 
             <View>
                 <Button title="Edit Profile" onPress={onPressEdit} />
+                <Button title="Exit" onPress={onPressExit} color="red" />
             </View>
 
             <View style={styles.infoBoxWrapper}>

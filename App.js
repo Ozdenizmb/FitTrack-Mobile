@@ -13,9 +13,6 @@ import Login from './src/components/Login';
 import SignUp from './src/components/SignUp';
 import { Provider } from 'react-redux';
 import store from './src/redux/store';
-//import ConfigureStore from './src/redux/ConfigureStore';
-
-//const store = ConfigureStore();
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
