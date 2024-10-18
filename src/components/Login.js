@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TextInput, View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { Modal } from 'react-native'
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useTheme } from '@react-navigation/native';
@@ -13,7 +13,7 @@ const Login = ({ visible, onCommand ,onCancel}) => {
     const {colors} = useTheme();
 
     const commandHandler = () => {
-        onCommand();
+        onCommand(email, password);
     }
 
     const cancelHandler = () => {

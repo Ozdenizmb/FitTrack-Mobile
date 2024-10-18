@@ -1,15 +1,18 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import ProfileRedirectionNavigate from '../../components/ProfileRedirectionNavigate'
 import Profile from '../ProfileScreen/Profile'
+import { useSelector } from 'react-redux'
 
 const ProfileRedirection = () => {
 
-    let isLogin = false;
+    const { isLoggedIn } = useSelector(store => ({
+        isLoggedIn: store.isLoggedIn
+    }));
 
     return (
         <View style={styles.container}>
-            {isLogin ? <Profile /> : <ProfileRedirectionNavigate />}
+            {isLoggedIn ? <Profile /> : <ProfileRedirectionNavigate />}
         </View>
     )
 }

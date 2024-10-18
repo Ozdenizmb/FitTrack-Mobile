@@ -18,7 +18,17 @@ const SignUp = ({ visible, onCommand, onCancel }) => {
     const {colors} = useTheme();
 
     const commandHandler = () => {
-        onCommand();
+        const body = {
+            firstName,
+            lastName,
+            email,
+            password,
+            phone,
+            country,
+            city
+        }
+
+        onCommand(body);
     }
 
     const cancelHandler = () => {

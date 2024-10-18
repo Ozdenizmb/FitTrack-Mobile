@@ -1,14 +1,17 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import icon from '../../assets/icon.png'
-import { useNavigation } from '@react-navigation/native'
 import Login from './Login'
 import SignUp from './SignUp'
+import { login, signUp } from '../api/ApiCalls'
+import { loginUserHandler } from '../redux/AuthActions'
 
 const ProfileRedirectionNavigate = () => {
 
     const [signUpVisible, setSignUpVisible] = useState(false);
     const [loginVisible, setLoginVisible] = useState(false);
+
+    const [error, setError] = useState("");
 
     const onPressLogin = () => {
         setLoginVisible(true);
@@ -26,12 +29,21 @@ const ProfileRedirectionNavigate = () => {
         setSignUpVisible(false);
     }
 
-    const onCommandLogin = () => {
-
+    const onCommandLogin = async (email, password) => {
+        try {
+            const response = await login(email, password);
+            loginUserHandler(response.data, password);
+        } catch(error) {
+            setError(error.data.detail);
+        }
     }
 
-    const onCommandSignUp = () => {
-        
+    const onCommandSignUp = async (body) => {
+        try {
+            await signUp(body);
+        } catch(error) {
+            setError(error.data.detail);
+        }
     }
 
     return (
@@ -50,8 +62,8 @@ const ProfileRedirectionNavigate = () => {
                 </View>
             </View>
             <View>
-                <Login visible={loginVisible} onCommand={onCommandLogin} onCancel={onCancelLogin} />
-                <SignUp visible={signUpVisible} onCommand={onCommandSignUp} onCancel={onCancelSignUp} />
+                <Login visible={loginVisible} onCommand={(email, password) => onCommandLogin(email, password)} onCancel={onCancelLogin} />
+                <SignUp visible={signUpVisible} onCommand={(body) => onCommandSignUp(body)} onCancel={onCancelSignUp} />
             </View>
         </View>
     )
