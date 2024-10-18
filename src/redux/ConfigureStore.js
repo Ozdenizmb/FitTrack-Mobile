@@ -1,31 +1,22 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
+import { createStore, combineReducers } from 'redux';
 import AuthReducer from './AuthReducer';
-import { persistStore, persistReducer } from 'redux-persist';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { setAuthorizationHeader } from '../api/ApiCalls';
-
-const persistConfig = {
-    key: 'fittrack-profile',
-    storage: AsyncStorage,
-};
-
-const persistedReducer = persistReducer(persistConfig, AuthReducer);
 
 const ConfigureStore = () => {
 
-    const composeEnhancers = compose;
-    
-    const store = createStore(persistedReducer, composeEnhancers(applyMiddleware(thunk)));
+    let stateInLocaleStorage = {
+        isLoggedIn : false,
+        id : undefined,
+        email : undefined,
+        password : undefined
+    }
+    const initialState = stateInLocaleStorage;
+    setAuthorizationHeader(initialState);
 
-    const persistor = persistStore(store);
+    const reducer = combineReducers({ data: AuthReducer });
+    const store = createStore(reducer);
 
-    store.subscribe(() => {
-        const state = store.getState();
-        setAuthorizationHeader(state);
-    });
-
-    return { store, persistor };
+    return store;
 
 }
 

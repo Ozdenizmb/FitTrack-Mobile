@@ -6,9 +6,7 @@ import { useSelector } from 'react-redux'
 
 const ProfileRedirection = () => {
 
-    const { isLoggedIn } = useSelector(store => ({
-        isLoggedIn: store.isLoggedIn
-    }));
+    const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
 
     return (
         <View style={styles.container}>
