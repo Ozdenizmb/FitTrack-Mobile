@@ -28,6 +28,10 @@ export const getUser = (id) => {
     return axios.get(`${API_BASE_URL}/users/get/id/${id}`);
 }
 
+export const updateUser = (id, body) => {
+    return axios.put(`${API_BASE_URL}/users/update/${id}`, body);
+}
+
 export const getTrainings = () => {
     return axios.get(`${API_BASE_URL}/trainings/get`);
 }

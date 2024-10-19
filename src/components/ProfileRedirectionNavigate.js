@@ -12,8 +12,6 @@ const ProfileRedirectionNavigate = () => {
     const [signUpVisible, setSignUpVisible] = useState(false);
     const [loginVisible, setLoginVisible] = useState(false);
 
-    const [error, setError] = useState("");
-
     const dispatch = useDispatch();
 
     const onPressLogin = () => {
@@ -38,8 +36,16 @@ const ProfileRedirectionNavigate = () => {
             dispatch(loginUserHandler(response.data, password));
             setLoginVisible(false);
         } catch(error) {
-            console.log(error)
-            setError();
+            const errorMessage = error.response.data.title + ": " + error.response.data.detail;
+            Toast.show({
+                text1: 'Hatalı Giriş!',
+                text2: errorMessage,
+                type: 'error',
+                position: 'top',
+                visibilityTime: 10000,
+                autoHide: true,
+                topOffset: 30
+            });
         }
     }
 
@@ -48,7 +54,16 @@ const ProfileRedirectionNavigate = () => {
             await signUp(body);
             setSignUpVisible(false);
         } catch(error) {
-            setError();
+            const errorMessage = error.response.data.title + ": " + error.response.data.detail;
+            Toast.show({
+                text1: 'Kayıt Olamadınız!',
+                text2: errorMessage,
+                type: 'error',
+                position: 'top',
+                visibilityTime: 10000,
+                autoHide: true,
+                topOffset: 30
+            });
         }
     }
 

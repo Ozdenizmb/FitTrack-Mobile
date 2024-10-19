@@ -13,7 +13,6 @@ export const loginUserSuccess = (loginData) => {
 }
 
 export const loginUserHandler = (creds, password) => {
-    console.log(creds)
     return async function(dispatch) {
         const loginState = {
             id : creds.id,

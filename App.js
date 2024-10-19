@@ -13,6 +13,7 @@ import Login from './src/components/Login';
 import SignUp from './src/components/SignUp';
 import { Provider } from 'react-redux';
 import store from './src/redux/store';
+import Toast from 'react-native-toast-message';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -76,6 +77,7 @@ export default function App() {
                     <Tab.Screen name="Profile" component={ProfileStack} />
                 </Tab.Navigator>
             </NavigationContainer>
+            <Toast />
         </Provider>
     );
 }

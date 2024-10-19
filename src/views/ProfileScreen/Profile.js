@@ -9,6 +9,7 @@ import { logoutSuccess } from '../../redux/AuthActions';
 import { getUser } from '../../api/ApiCalls';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import Toast from 'react-native-toast-message';
 
 const Profile = () => {
 
@@ -40,6 +41,16 @@ const Profile = () => {
         setVisible(false);
     }
 
+    const successUpdate = () => {
+        setVisible(false);
+        Toast.show({
+            text1: 'Profil Güncellendi',
+            text2: 'Profil bilgileriniz başarıyla güncellendi.',
+            type: 'success',
+        });
+        onLoadData();
+    }
+
     const onPressExit = () => {
         dispatch(logoutSuccess());
     }
@@ -54,7 +65,7 @@ const Profile = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <EditProfile visible={visible} onCancel={onCancel} />
+            <EditProfile visible={visible} onCancel={onCancel} successUpdate={successUpdate} user={user} />
 
             <View style={styles.userInfoSection}>
                 <View style={{flexDirection: 'row', marginTop: 15}}>
