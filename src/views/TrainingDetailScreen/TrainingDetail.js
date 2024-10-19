@@ -78,6 +78,8 @@ const TrainingDetail = ({ route }) => {
                 <Text style={styles.descContent}>{data.title} - {data.category}</Text>
                 <Text style={styles.descTitle}>Description</Text>
                 <Text style={styles.descContent}>{data.description}</Text>
+                <Text style={styles.descTitle}>Difficulty</Text>
+                <Text style={styles.descContent}>{data.difficulty}</Text>
                 <Text style={styles.descTitle}>Duration</Text>
                 <Text style={styles.descContent}>{data.duration}</Text>
                 <Text style={styles.descTitle}>Date</Text>

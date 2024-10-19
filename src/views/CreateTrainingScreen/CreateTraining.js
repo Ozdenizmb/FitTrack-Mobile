@@ -6,6 +6,8 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import Feather from '@expo/vector-icons/Feather';
 import { Picker } from '@react-native-picker/picker';
 import * as ImagePicker from 'expo-image-picker';
+import { useSelector } from 'react-redux';
+import { createTraining } from '../../api/ApiCalls';
 
 const categories = [
     { id: 1, label: 'NUTRITION COURSE' },
@@ -44,14 +46,61 @@ const CreateTraining = () => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [duration, setDuration] = useState("");
-    const [difficult, setDifficult] = useState("");
+    const [difficulty, setDifficulty] = useState("");
     const [category, setCategory] = useState("");
     const [image, setImage] = useState(null);
 
+    const id = useSelector(state => state.auth.id);
+
     const {colors} = useTheme();
 
-    const commandHandler = () => {
-        console.log(image)
+    const commandHandler = async () => {
+        const body = {
+            userId: id,
+            title,
+            description,
+            duration,
+            difficulty,
+            category
+        }
+
+        const formData = new FormData();
+        formData.append('trainingCreateDto', {
+            "string": JSON.stringify(body),
+            type: 'application/json'
+        });
+        formData.append('image', {
+            uri: image,
+            type: 'image/jpeg',
+            name: 'image.jpg'
+        });
+
+        try {
+            console.log(formData);
+            await createTraining(formData);
+            Toast.show({
+                text1: 'Paylaşıldı!',
+                text2: 'İçeriğiniz Başarıyla Paylaşıldı.',
+                type: 'success',
+            });
+            setTitle("");
+            setDescription("");
+            setDuration("");
+            setCategory("");
+            setDifficulty("");
+            setImage(null);
+        } catch(error) {
+            const errorMessage = error.response.data.title + ": " + error.response.data.detail;
+            Toast.show({
+                text1: 'Paylaşım Yapılamadı!',
+                text2: errorMessage,
+                type: 'error',
+                position: 'top',
+                visibilityTime: 10000,
+                autoHide: true,
+                topOffset: 30
+            });
+        }
     }
 
     const chooseImage = async () => {
@@ -152,13 +201,13 @@ const CreateTraining = () => {
             <View style={styles.action}>
                 <Feather name="trending-up" size={20} color={colors.text} />
                 <Picker
-                    selectedValue={difficult}
+                    selectedValue={difficulty}
                     style={[styles.picker, { color: colors.text }]}
-                    onValueChange={(itemValue) => setDifficult(itemValue)}
+                    onValueChange={(itemValue) => setDifficulty(itemValue)}
                 >
                     <Picker.Item label="Select Difficulty" value="" />
-                    {difficulties.map(difficult => (
-                        <Picker.Item key={difficult.id} label={difficult.label} value={difficult.id} />
+                    {difficulties.map(difficulty => (
+                        <Picker.Item key={difficulty.id} label={difficulty.label} value={difficulty.id} />
                     ))}
                 </Picker>
             </View>

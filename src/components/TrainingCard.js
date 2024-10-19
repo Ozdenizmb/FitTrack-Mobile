@@ -17,7 +17,7 @@ const TrainingCard = ({ data }) => {
         <View style={styles.card}>
             <Image source={getImageSource()} style={styles.image} />
             <Text style={styles.title}>{data.title}</Text>
-            <Text style={styles.duration}>Duration: {data.duration}</Text>
+            <Text style={styles.duration}>{data.difficulty} - Duration: {data.duration}</Text>
         </View>
     )
 }

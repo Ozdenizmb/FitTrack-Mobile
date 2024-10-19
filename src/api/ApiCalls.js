@@ -32,6 +32,14 @@ export const updateUser = (id, body) => {
     return axios.put(`${API_BASE_URL}/users/update/${id}`, body);
 }
 
+export const createTraining = (form) => {
+    return axios.post(`${API_BASE_URL}/trainings/create`, form, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    });
+}
+
 export const getTrainings = () => {
     return axios.get(`${API_BASE_URL}/trainings/get`);
 }
