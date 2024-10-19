@@ -38,6 +38,7 @@ const SignUp = ({ visible, onCommand, onCancel }) => {
     return (
         <Modal animationType='slide' visible={visible}>
             <View style={styles.container}>
+                <Text style={styles.signUpTitle}>Sign Up</Text>
                 <View style={styles.action}>
                     <FontAwesome name="user-o" size={20} color={colors.text} />
                     <TextInput
@@ -168,9 +169,14 @@ export default SignUp
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         marginHorizontal: 30,
-        marginVertical: 180
+        marginTop: 150
+    },
+    signUpTitle: {
+        alignSelf: 'center',
+        fontWeight: 'bold',
+        fontSize: 35,
+        marginBottom: 20
     },
     action: {
         flexDirection: 'row',

@@ -23,6 +23,7 @@ const Login = ({ visible, onCommand ,onCancel}) => {
     return (
         <Modal animationType='slide' visible={visible}>
             <View style={styles.container}>
+                <Text style={styles.loginTitle}>Login</Text>
                 <View style={styles.action}>
                     <FontAwesome name="envelope-o" color={colors.text} size={20} />
                     <TextInput
@@ -72,9 +73,14 @@ export default Login
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         marginHorizontal: 30,
-        marginVertical: 300
+        marginTop: 250
+    },
+    loginTitle: {
+        alignSelf: 'center',
+        fontWeight: 'bold',
+        fontSize: 35,
+        marginBottom: 20
     },
     action: {
         flexDirection: 'row',

@@ -24,6 +24,10 @@ export const setAuthorizationHeader = (userData) => {
     }
 };
 
+export const getUser = (id) => {
+    return axios.get(`${API_BASE_URL}/users/get/id/${id}`);
+}
+
 export const getTrainings = () => {
     return axios.get(`${API_BASE_URL}/trainings/get`);
 }

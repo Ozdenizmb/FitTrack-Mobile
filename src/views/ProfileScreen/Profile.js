@@ -1,17 +1,36 @@
-import { StyleSheet, View, SafeAreaView, Button } from 'react-native'
-import React, { useState } from 'react'
+import { StyleSheet, View, SafeAreaView, Button, ActivityIndicator, TouchableOpacity } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { Avatar, Title, Caption, Text } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import EditProfile from '../../components/EditProfile';
 import AnonymousPhoto from '../../../assets/profile.png';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logoutSuccess } from '../../redux/AuthActions';
+import { getUser } from '../../api/ApiCalls';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 const Profile = () => {
 
+    const [user, setUser] = useState();
     const [visible, setVisible] = useState(false)
 
     const dispatch = useDispatch();
+
+    const id = useSelector(state => state.auth.id);
+
+    useEffect(() => {
+        onLoadData();
+    }, [id]);
+
+    const onLoadData = async () => {
+        try {
+            const response = await getUser(id);
+            setUser(response.data);
+        } catch(error) {
+
+        }
+    }
 
     const onPressEdit = () => {
         setVisible(true);
@@ -23,6 +42,14 @@ const Profile = () => {
 
     const onPressExit = () => {
         dispatch(logoutSuccess());
+    }
+
+    if(!user) {
+        return (
+            <View style={styles.spinnerContainer}>
+                <ActivityIndicator size="large" color="#0000ff" />
+            </View>
+        );
     }
 
     return (
@@ -39,8 +66,8 @@ const Profile = () => {
                     <Title style={[styles.title, {
                     marginTop:15,
                     marginBottom: 5,
-                    }]}>Baran Özdeniz</Title>
-                    <Caption style={styles.caption}>info@baranozdeniz.com</Caption>
+                    }]}>{user.firstName} {user.lastName}</Title>
+                    <Caption style={styles.caption}>{user.email}</Caption>
                 </View>
                 </View>
             </View>
@@ -48,21 +75,27 @@ const Profile = () => {
             <View style={styles.userInfoSection}>
                 <View style={styles.row}>
                 <Icon name="map-marker-radius" color="#777777" size={20}/>
-                <Text style={{color:"#777777", marginLeft: 20}}>Malatya, Turkey</Text>
+                <Text style={{color:"#777777", marginLeft: 20}}>{user.city}, {user.country}</Text>
                 </View>
                 <View style={styles.row}>
                 <Icon name="phone" color="#777777" size={20}/>
-                <Text style={{color:"#777777", marginLeft: 20}}>05375959569</Text>
+                <Text style={{color:"#777777", marginLeft: 20}}>{user.phone}</Text>
                 </View>
                 <View style={styles.row}>
                 <Icon name="email" color="#777777" size={20}/>
-                <Text style={{color:"#777777", marginLeft: 20}}>info@baranozdeniz.com</Text>
+                <Text style={{color:"#777777", marginLeft: 20}}>{user.email}</Text>
                 </View>
             </View>
 
-            <View>
-                <Button title="Edit Profile" onPress={onPressEdit} />
-                <Button title="Exit" onPress={onPressExit} color="red" />
+            <View style={styles.buttonsContainer}>
+                <TouchableOpacity style={styles.editButton} onPress={onPressEdit}>
+                    <AntDesign name="edit" size={24} color="white" />
+                    <Text style={styles.buttonText}>Edit Profile</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.exitButton} onPress={onPressExit}>
+                    <Ionicons name="exit-outline" size={24} color="white" />
+                    <Text style={styles.buttonText}>Exit</Text>
+                </TouchableOpacity>
             </View>
 
             <View style={styles.infoBoxWrapper}>
@@ -105,6 +138,31 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginBottom: 10,
     },
+    buttonsContainer: {
+        flexDirection: 'row'
+    },
+    editButton: {
+        height: 40,
+        backgroundColor: '#1885d8',
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    exitButton: {
+        height: 40,
+        backgroundColor: '#F44336',
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginLeft: 10
+    },
     infoBoxWrapper: {
         borderBottomColor: '#dddddd',
         borderBottomWidth: 1,
@@ -118,4 +176,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    spinnerContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    }
 })
