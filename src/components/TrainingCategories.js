@@ -2,14 +2,17 @@ import { StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import TrainingCardFeed from './TrainingCardFeed'
 import { getTrainings } from '../api/ApiCalls';
+import { useFocusEffect } from '@react-navigation/native';
 
 const TrainingCategories = () => {
 
     const [data, setData] = useState([]);
 
-    useEffect(() => {
-        onLoadData();
-    }, [])
+    useFocusEffect(
+        React.useCallback(() => {
+            onLoadData();
+        }, [])
+    );
 
     const onLoadData = async () => {
         try {

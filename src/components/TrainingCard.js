@@ -1,13 +1,12 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
-import { Buffer } from 'buffer';
 
 const TrainingCard = ({ data }) => {
 
     const getImageSource = () => {
         if(data.image && data.image.length > 0) {
-            const base64Image = Buffer.from(data.image, 'binary').toString('base64');
-            return { uri: `data:image/png;base64,${base64Image}` };
+            const mimeType = data.image.startsWith('/9j') ? 'image/jpeg' : 'image/png';
+            return { uri: `data:${mimeType};base64,${data.image}` };
         }
         const randomNumber = Math.floor(Math.random() * 100);
         return { uri: `https://picsum.photos/200/300?random=${randomNumber}` };

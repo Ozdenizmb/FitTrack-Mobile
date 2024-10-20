@@ -1,11 +1,10 @@
 import { ScrollView, StyleSheet, View } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import SearchBar from '../../components/SearchBar'
 import TrainingCategories from '../../components/TrainingCategories'
 import ImageSlider from '../../components/ImageSlider'
 
 const Index = () => {
-
     return (
         <ScrollView style={styles.container}>
             <SearchBar />

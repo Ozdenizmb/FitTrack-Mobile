@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native'
 import React, { useState } from 'react'
-import { useTheme } from '@react-navigation/native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Feather from '@expo/vector-icons/Feather';
@@ -8,6 +8,7 @@ import { Picker } from '@react-native-picker/picker';
 import * as ImagePicker from 'expo-image-picker';
 import { useSelector } from 'react-redux';
 import { createTraining } from '../../api/ApiCalls';
+import Toast from 'react-native-toast-message';
 
 const categories = [
     { id: 1, label: 'NUTRITION COURSE' },
@@ -52,6 +53,8 @@ const CreateTraining = () => {
 
     const id = useSelector(state => state.auth.id);
 
+    const navigation = useNavigation();
+
     const {colors} = useTheme();
 
     const commandHandler = async () => {
@@ -76,8 +79,7 @@ const CreateTraining = () => {
         });
 
         try {
-            console.log(formData);
-            await createTraining(formData);
+            const response = await createTraining(formData);
             Toast.show({
                 text1: 'Paylaşıldı!',
                 text2: 'İçeriğiniz Başarıyla Paylaşıldı.',
@@ -89,6 +91,7 @@ const CreateTraining = () => {
             setCategory("");
             setDifficulty("");
             setImage(null);
+            navigation.navigate('TrainingDetailScreen', {id: response.data});
         } catch(error) {
             const errorMessage = error.response.data.title + ": " + error.response.data.detail;
             Toast.show({
@@ -227,6 +230,7 @@ const CreateTraining = () => {
             <TouchableOpacity style={styles.commandButton} onPress={commandHandler}>
                 <Text style={styles.panelButtonTitle}>Share</Text>
             </TouchableOpacity>
+            <Toast />
         </View>
     )
 }
