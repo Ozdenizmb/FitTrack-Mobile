@@ -17,6 +17,8 @@
 <br>
 <p><i>Access the project's back-end from the following link:</i></p>
 <p>https://github.com/Ozdenizmb/FitTrack-Backend</p>
+<br>
+<p>Video Link: https://www.youtube.com/watch?v=2yXd5kN3yOA</p>
 
 <br><br><br>
 <h2>Screenshots</h2>
