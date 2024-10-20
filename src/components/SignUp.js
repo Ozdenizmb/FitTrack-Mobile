@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import { useTheme } from 'react-native-paper';
+import Toast from 'react-native-toast-message';
 
 const SignUp = ({ visible, onCommand, onCancel }) => {
 
@@ -161,6 +162,7 @@ const SignUp = ({ visible, onCommand, onCancel }) => {
                     <Text style={styles.panelButtonTitle}>Cancel</Text>
                 </TouchableOpacity>
             </View>
+            <Toast />
         </Modal>
     )
 }

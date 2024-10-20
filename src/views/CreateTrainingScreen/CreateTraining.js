@@ -9,6 +9,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { useSelector } from 'react-redux';
 import { createTraining } from '../../api/ApiCalls';
 import Toast from 'react-native-toast-message';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const categories = [
     { id: 1, label: 'NUTRITION COURSE' },
@@ -51,6 +52,8 @@ const CreateTraining = () => {
     const [category, setCategory] = useState("");
     const [image, setImage] = useState(null);
 
+    const [showPicker, setShowPicker] = useState(false);
+
     const id = useSelector(state => state.auth.id);
 
     const navigation = useNavigation();
@@ -80,11 +83,6 @@ const CreateTraining = () => {
 
         try {
             const response = await createTraining(formData);
-            Toast.show({
-                text1: 'Paylaşıldı!',
-                text2: 'İçeriğiniz Başarıyla Paylaşıldı.',
-                type: 'success',
-            });
             setTitle("");
             setDescription("");
             setDuration("");
@@ -93,7 +91,12 @@ const CreateTraining = () => {
             setImage(null);
             navigation.navigate('TrainingDetailScreen', {id: response.data});
         } catch(error) {
-            const errorMessage = error.response.data.title + ": " + error.response.data.detail;
+            let errorMessage;
+            try {
+                errorMessage = error.response.data.title + ": " + error.response.data.detail;
+            } catch(cannotReadError) {
+                errorMessage = "Doğru Formatta Resim Seçtiğinize Emin Olun!"
+            }
             Toast.show({
                 text1: 'Paylaşım Yapılamadı!',
                 text2: errorMessage,
@@ -138,10 +141,21 @@ const CreateTraining = () => {
                 topOffset: 30
             });
         } else {
-            console.log(result.uri);
             setImage(result.assets[0].uri);
         }
     }
+
+    const onChange = (event, selectedTime) => {
+        if (event.type === 'set' && selectedTime) {
+            console.log("asd")
+            const hours = selectedTime.getHours();
+            const minutes = selectedTime.getMinutes();
+            const formattedDuration = `${hours < 10 ? `0${hours}` : hours}:${minutes < 10 ? `0${minutes}` : minutes}`;
+            setDuration(formattedDuration);
+            console.log(formattedDuration);
+        }
+        setShowPicker(false);
+    };
     
     return (
         <View style={styles.container}>
@@ -186,20 +200,26 @@ const CreateTraining = () => {
                 />
             </View>
             <View style={styles.action}>
-                <Ionicons name="time-sharp" size={20} color={colors.text} />
-                <TextInput
-                    placeholder="Duration"
-                    placeholderTextColor="#666666"
-                    autoCorrect={false}
-                    style={[
-                        styles.textInput,
-                        {
-                            color: colors.text,
-                        },
-                    ]}
-                    value={duration}
-                    onChangeText={(text) => setDuration(text)}
-                />
+                <Ionicons name="time-sharp" size={20} color="#666" />
+                <TouchableOpacity onPress={() => setShowPicker(true)} style={{ flex: 1 }}>
+                    <TextInput
+                        placeholder="Duration (HH:mm)"
+                        placeholderTextColor="#666666"
+                        autoCorrect={false}
+                        style={styles.textInput}
+                        value={duration}
+                        editable={false}
+                    />
+                </TouchableOpacity>
+                {showPicker && (
+                    <DateTimePicker
+                        value={new Date()}
+                        mode="time"
+                        is24Hour = {true}
+                        display="default"
+                        onChange={onChange}
+                    />
+                )}
             </View>
             <View style={styles.action}>
                 <Feather name="trending-up" size={20} color={colors.text} />

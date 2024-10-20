@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { StyleSheet, View } from 'react-native'
+import React, { useState } from 'react'
 import TrainingCardFeed from './TrainingCardFeed'
 import { getTrainings } from '../api/ApiCalls';
 import { useFocusEffect } from '@react-navigation/native';

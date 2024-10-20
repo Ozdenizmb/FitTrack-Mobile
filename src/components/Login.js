@@ -4,6 +4,7 @@ import { Modal } from 'react-native'
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useTheme } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native';
+import Toast from 'react-native-toast-message';
 
 const Login = ({ visible, onCommand ,onCancel}) => {
 
@@ -65,6 +66,7 @@ const Login = ({ visible, onCommand ,onCancel}) => {
                     <Text style={styles.panelButtonTitle}>Cancel</Text>
                 </TouchableOpacity>
             </View>
+            <Toast />
         </Modal>
     )
 }

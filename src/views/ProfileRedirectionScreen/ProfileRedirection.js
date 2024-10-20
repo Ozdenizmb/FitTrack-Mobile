@@ -1,5 +1,5 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
+import { StyleSheet, View } from 'react-native'
+import React from 'react'
 import ProfileRedirectionNavigate from '../../components/ProfileRedirectionNavigate'
 import Profile from '../ProfileScreen/Profile'
 import { useSelector } from 'react-redux'

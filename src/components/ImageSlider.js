@@ -1,6 +1,5 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Image } from 'react-native'
 import React from 'react'
-import AntDesign from '@expo/vector-icons/AntDesign';
 import Swiper from 'react-native-swiper';
 import sport1 from '../../assets/sport1.jpg';
 import sport2 from '../../assets/sport2.jpg';

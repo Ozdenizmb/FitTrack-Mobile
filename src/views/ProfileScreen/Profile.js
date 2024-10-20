@@ -122,6 +122,7 @@ const Profile = () => {
                     <Caption>Favorite</Caption>
                 </View>
             </View>
+            <Toast />
         </SafeAreaView>
     )
 }

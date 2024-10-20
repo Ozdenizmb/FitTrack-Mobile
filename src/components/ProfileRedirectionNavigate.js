@@ -6,6 +6,7 @@ import SignUp from './SignUp'
 import { login, signUp } from '../api/ApiCalls'
 import { loginUserHandler } from '../redux/AuthActions'
 import { useDispatch } from 'react-redux'
+import Toast from 'react-native-toast-message'
 
 const ProfileRedirectionNavigate = () => {
 
@@ -54,7 +55,7 @@ const ProfileRedirectionNavigate = () => {
             await signUp(body);
             setSignUpVisible(false);
         } catch(error) {
-            const errorMessage = error.response.data.title + ": " + error.response.data.detail;
+            errorMessage = error.response.data.title + ": " + error.response.data.detail;
             Toast.show({
                 text1: 'Kayıt Olamadınız!',
                 text2: errorMessage,
